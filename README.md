@@ -1,1 +1,1 @@
-# Zendesk-Document-Manager
+# zendesk-app-bridge
