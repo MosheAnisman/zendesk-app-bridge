@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    // 1. Get the token from the URL hash
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const accessToken = params.get('access_token');
+    const error = params.get('error');
+
+    // 2. Determine who opened this window (Safety Check)
+    // In strict production, you might check event.origin here.
+    // For now, we send to '*', which supports both localhost and zendesk.com
+    if (accessToken) {
+      window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS', token: accessToken }, '*');
+      window.close();
+    } else {
+      document.body.innerText = "Error: " + (error || "No token found");
+    }
+  </script>
+</body>
+</html>
